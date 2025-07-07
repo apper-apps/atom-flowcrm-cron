@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import ActivityTimeline from '@/components/organisms/ActivityTimeline';
 import Button from '@/components/atoms/Button';
@@ -8,14 +9,13 @@ import Error from '@/components/ui/Error';
 import Empty from '@/components/ui/Empty';
 import ApperIcon from '@/components/ApperIcon';
 import { activityService } from '@/services/api/activityService';
-
 const Activities = () => {
+  const navigate = useNavigate();
   const [activities, setActivities] = useState([]);
   const [filteredActivities, setFilteredActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [filterType, setFilterType] = useState('all');
-  
   const loadActivities = async () => {
     try {
       setLoading(true);
@@ -43,11 +43,9 @@ const Activities = () => {
     }
   }, [filterType, activities]);
   
-  const handleAddActivity = () => {
-    console.log('Add activity');
-    // Navigate to add activity page or open modal
+const handleAddActivity = () => {
+    navigate('/activities/new');
   };
-  
   if (loading) {
     return <Loading type="card" />;
   }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import TaskList from '@/components/organisms/TaskList';
@@ -7,12 +8,11 @@ import Loading from '@/components/ui/Loading';
 import Error from '@/components/ui/Error';
 import ApperIcon from '@/components/ApperIcon';
 import { taskService } from '@/services/api/taskService';
-
 const Tasks = () => {
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
   const loadTasks = async () => {
     try {
       setLoading(true);
@@ -60,12 +60,9 @@ const Tasks = () => {
     toast.info('Edit task functionality will be implemented');
   };
   
-  const handleAddTask = () => {
-    // Navigate to add task page or open modal
-    console.log('Add task');
-    toast.info('Add task functionality will be implemented');
+const handleAddTask = () => {
+    navigate('/tasks/new');
   };
-  
   if (loading) {
     return <Loading type="card" />;
   }
