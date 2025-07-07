@@ -104,10 +104,10 @@ const ContactTable = ({ contacts, onContactClick, onEditContact, onDeleteContact
                 onClick={() => onContactClick(contact)}
               >
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
+<div className="flex items-center">
                     <div className="w-10 h-10 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center">
                       <span className="text-sm font-medium text-primary">
-                        {contact.firstName[0]}{contact.lastName[0]}
+                        {contact.first_name?.[0] || contact.Name?.[0] || '?'}{contact.last_name?.[0] || contact.Name?.[1] || ''}
                       </span>
                     </div>
                     <div className="ml-4">
