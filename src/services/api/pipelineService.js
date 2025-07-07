@@ -75,8 +75,26 @@ getPipelines: async () => {
         { Name: "Closed Lost", order: 7, color: "#EF4444" }
       ];
 
-      // Check if stages already exist
-      const existingStages = await pipelineService.getStages();
+// Check if stages already exist - direct fetch to avoid circular dependency
+      const stageParams = {
+        fields: [
+          { "field": { "Name": "Name" } },
+          { "field": { "Name": "order" } },
+          { "field": { "Name": "color" } }
+        ]
+      };
+      
+      let existingStages = [];
+      try {
+        const stageResponse = await apperClient.fetchRecords('stage', stageParams);
+        if (stageResponse.success && stageResponse.data) {
+          existingStages = stageResponse.data;
+        }
+      } catch (error) {
+        console.error('Error fetching existing stages:', error);
+        // Continue with empty array if fetch fails
+        existingStages = [];
+      }
       
       // Only create stages if none exist or if we're missing the new ones
       const existingStageNames = existingStages.map(stage => stage.Name);
