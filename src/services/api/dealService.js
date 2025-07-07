@@ -170,7 +170,7 @@ const params = {
           value: dealData.value,
           close_date: dealData.closeDate,
           description: dealData.description || "",
-          probability: dealData.probability.toString(),
+          probability: dealData.probability,
           status: "active",
           contact_id: dealData.contactId,
           stage_id: dealData.stageId

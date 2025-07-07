@@ -24,7 +24,7 @@ const [formData, setFormData] = useState({
     stageId: '',
     closeDate: '',
     description: '',
-    probability: 50
+    probability: 3
   });
   const [errors, setErrors] = useState({});
 
@@ -54,7 +54,7 @@ const [formData, setFormData] = useState({
     }
   };
 
-  const validateForm = () => {
+const validateForm = () => {
     const newErrors = {};
     
     if (!formData.title.trim()) {
@@ -71,6 +71,10 @@ const [formData, setFormData] = useState({
     
     if (!formData.stageId) {
       newErrors.stageId = 'Stage is required';
+    }
+    
+    if (formData.probability < 0 || formData.probability > 5) {
+      newErrors.probability = 'Probability must be between 0 and 5';
     }
 
     setErrors(newErrors);
@@ -182,18 +186,22 @@ setLoading(true);
               )}
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="probability">Probability (%)</Label>
+<div className="space-y-2">
+              <Label htmlFor="probability">Probability (0-5)</Label>
               <Input
                 id="probability"
                 name="probability"
                 type="number"
                 min="0"
-                max="100"
+                max="5"
                 value={formData.probability}
                 onChange={handleInputChange}
-                placeholder="Enter probability"
+                placeholder="Enter probability (0-5)"
+                className={errors.probability ? 'border-red-500' : ''}
               />
+              {errors.probability && (
+                <p className="text-sm text-red-500">{errors.probability}</p>
+              )}
             </div>
           </div>
 
