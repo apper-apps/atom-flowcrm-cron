@@ -1,0 +1,134 @@
+[
+  {
+    "Id": 1,
+    "type": "call",
+    "subject": "Initial discovery call",
+    "description": "Discussed current software needs and pain points",
+    "dealId": 1,
+    "contactId": 1,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-15T10:30:00Z"
+  },
+  {
+    "Id": 2,
+    "type": "email",
+    "subject": "Proposal sent",
+    "description": "Sent detailed proposal including pricing and timeline",
+    "dealId": 1,
+    "contactId": 1,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-18T14:20:00Z"
+  },
+  {
+    "Id": 3,
+    "type": "meeting",
+    "subject": "Technical requirements meeting",
+    "description": "Deep dive into technical specifications for cloud migration",
+    "dealId": 2,
+    "contactId": 2,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-12T16:00:00Z"
+  },
+  {
+    "Id": 4,
+    "type": "note",
+    "subject": "Budget discussion",
+    "description": "Client confirmed budget range of $40-50k for marketing platform",
+    "dealId": 3,
+    "contactId": 3,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-10T11:45:00Z"
+  },
+  {
+    "Id": 5,
+    "type": "call",
+    "subject": "Contract negotiation",
+    "description": "Discussed contract terms and implementation schedule",
+    "dealId": 4,
+    "contactId": 4,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-19T09:15:00Z"
+  },
+  {
+    "Id": 6,
+    "type": "email",
+    "subject": "Welcome email sent",
+    "description": "Sent welcome package with onboarding instructions",
+    "dealId": 5,
+    "contactId": 5,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-22T13:30:00Z"
+  },
+  {
+    "Id": 7,
+    "type": "meeting",
+    "subject": "Project kickoff",
+    "description": "Initial project planning session with development team",
+    "dealId": 6,
+    "contactId": 6,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-16T10:00:00Z"
+  },
+  {
+    "Id": 8,
+    "type": "call",
+    "subject": "Demo presentation",
+    "description": "Presented e-commerce platform capabilities",
+    "dealId": 7,
+    "contactId": 7,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-14T15:20:00Z"
+  },
+  {
+    "Id": 9,
+    "type": "email",
+    "subject": "Follow-up after demo",
+    "description": "Sent additional information requested during demo",
+    "dealId": 7,
+    "contactId": 7,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-17T12:10:00Z"
+  },
+  {
+    "Id": 10,
+    "type": "note",
+    "subject": "Price objection",
+    "description": "Client felt pricing was too high for their budget",
+    "dealId": 8,
+    "contactId": 8,
+    "dueDate": null,
+    "completed": true,
+    "createdAt": "2024-01-20T14:45:00Z"
+  },
+  {
+    "Id": 11,
+    "type": "task",
+    "subject": "Prepare competitive analysis",
+    "description": "Research competitors for better positioning",
+    "dealId": 3,
+    "contactId": 3,
+    "dueDate": "2024-01-25T10:00:00Z",
+    "completed": false,
+    "createdAt": "2024-01-21T09:30:00Z"
+  },
+  {
+    "Id": 12,
+    "type": "task",
+    "subject": "Schedule technical review",
+    "description": "Set up technical review meeting with client's IT team",
+    "dealId": 2,
+    "contactId": 2,
+    "dueDate": "2024-01-26T14:00:00Z",
+    "completed": false,
+    "createdAt": "2024-01-22T11:15:00Z"
+  }
+]

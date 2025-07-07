@@ -1,0 +1,90 @@
+[
+  {
+    "Id": 1,
+    "firstName": "Sarah",
+    "lastName": "Johnson",
+    "email": "sarah.johnson@techcorp.com",
+    "phone": "+1-555-0101",
+    "companyId": 1,
+    "companyName": "TechCorp Solutions",
+    "ownerId": 1,
+    "createdAt": "2024-01-05T10:00:00Z"
+  },
+  {
+    "Id": 2,
+    "firstName": "Michael",
+    "lastName": "Chen",
+    "email": "m.chen@innovateplus.com",
+    "phone": "+1-555-0102",
+    "companyId": 2,
+    "companyName": "InnovatePlus Inc",
+    "ownerId": 1,
+    "createdAt": "2024-01-06T14:30:00Z"
+  },
+  {
+    "Id": 3,
+    "firstName": "Emily",
+    "lastName": "Rodriguez",
+    "email": "emily.r@digitalwave.com",
+    "phone": "+1-555-0103",
+    "companyId": 3,
+    "companyName": "DigitalWave Marketing",
+    "ownerId": 1,
+    "createdAt": "2024-01-07T09:15:00Z"
+  },
+  {
+    "Id": 4,
+    "firstName": "David",
+    "lastName": "Thompson",
+    "email": "david.thompson@nexustech.com",
+    "phone": "+1-555-0104",
+    "companyId": 4,
+    "companyName": "NexusTech Enterprise",
+    "ownerId": 1,
+    "createdAt": "2024-01-08T16:45:00Z"
+  },
+  {
+    "Id": 5,
+    "firstName": "Lisa",
+    "lastName": "Wang",
+    "email": "lisa.wang@datainsights.com",
+    "phone": "+1-555-0105",
+    "companyId": 5,
+    "companyName": "DataInsights Pro",
+    "ownerId": 1,
+    "createdAt": "2024-01-09T11:20:00Z"
+  },
+  {
+    "Id": 6,
+    "firstName": "James",
+    "lastName": "Wilson",
+    "email": "j.wilson@mobilefirst.com",
+    "phone": "+1-555-0106",
+    "companyId": 6,
+    "companyName": "MobileFirst Solutions",
+    "ownerId": 1,
+    "createdAt": "2024-01-10T13:00:00Z"
+  },
+  {
+    "Id": 7,
+    "firstName": "Amanda",
+    "lastName": "Davis",
+    "email": "amanda.davis@ecomexpert.com",
+    "phone": "+1-555-0107",
+    "companyId": 7,
+    "companyName": "EcomExpert Systems",
+    "ownerId": 1,
+    "createdAt": "2024-01-11T08:30:00Z"
+  },
+  {
+    "Id": 8,
+    "firstName": "Robert",
+    "lastName": "Martinez",
+    "email": "robert.m@cybersafe.com",
+    "phone": "+1-555-0108",
+    "companyId": 8,
+    "companyName": "CyberSafe Technologies",
+    "ownerId": 1,
+    "createdAt": "2024-01-12T15:45:00Z"
+  }
+]

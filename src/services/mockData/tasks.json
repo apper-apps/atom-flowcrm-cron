@@ -1,0 +1,98 @@
+[
+  {
+    "Id": 1,
+    "title": "Follow up on Enterprise Software proposal",
+    "description": "Call Sarah Johnson to discuss pricing and implementation timeline",
+    "assigneeId": 1,
+    "dueDate": "2024-01-25T10:00:00Z",
+    "priority": "high",
+    "status": "pending",
+    "dealId": 1,
+    "contactId": 1,
+    "createdAt": "2024-01-20T09:00:00Z"
+  },
+  {
+    "Id": 2,
+    "title": "Prepare technical documentation",
+    "description": "Create detailed technical specs for cloud migration project",
+    "assigneeId": 1,
+    "dueDate": "2024-01-28T15:00:00Z",
+    "priority": "medium",
+    "status": "in_progress",
+    "dealId": 2,
+    "contactId": 2,
+    "createdAt": "2024-01-18T11:30:00Z"
+  },
+  {
+    "Id": 3,
+    "title": "Schedule demo meeting",
+    "description": "Arrange product demo with DigitalWave Marketing team",
+    "assigneeId": 1,
+    "dueDate": "2024-01-24T14:00:00Z",
+    "priority": "high",
+    "status": "pending",
+    "dealId": 3,
+    "contactId": 3,
+    "createdAt": "2024-01-19T16:20:00Z"
+  },
+  {
+    "Id": 4,
+    "title": "Contract review",
+    "description": "Review final contract terms with legal team",
+    "assigneeId": 1,
+    "dueDate": "2024-01-26T12:00:00Z",
+    "priority": "high",
+    "status": "pending",
+    "dealId": 4,
+    "contactId": 4,
+    "createdAt": "2024-01-21T10:15:00Z"
+  },
+  {
+    "Id": 5,
+    "title": "Send onboarding materials",
+    "description": "Prepare and send welcome package to new client",
+    "assigneeId": 1,
+    "dueDate": "2024-01-23T09:00:00Z",
+    "priority": "medium",
+    "status": "completed",
+    "dealId": 5,
+    "contactId": 5,
+    "createdAt": "2024-01-17T13:45:00Z"
+  },
+  {
+    "Id": 6,
+    "title": "Requirements gathering session",
+    "description": "Conduct detailed requirements analysis with client",
+    "assigneeId": 1,
+    "dueDate": "2024-01-30T10:30:00Z",
+    "priority": "medium",
+    "status": "pending",
+    "dealId": 6,
+    "contactId": 6,
+    "createdAt": "2024-01-22T14:00:00Z"
+  },
+  {
+    "Id": 7,
+    "title": "Competitor analysis",
+    "description": "Research competitive landscape for e-commerce proposal",
+    "assigneeId": 1,
+    "dueDate": "2024-01-27T16:00:00Z",
+    "priority": "low",
+    "status": "in_progress",
+    "dealId": 7,
+    "contactId": 7,
+    "createdAt": "2024-01-16T12:30:00Z"
+  },
+  {
+    "Id": 8,
+    "title": "Post-mortem meeting",
+    "description": "Analyze why the cybersecurity deal was lost",
+    "assigneeId": 1,
+    "dueDate": "2024-01-29T11:00:00Z",
+    "priority": "low",
+    "status": "pending",
+    "dealId": 8,
+    "contactId": 8,
+    "createdAt": "2024-01-23T15:30:00Z"
+  }
+]

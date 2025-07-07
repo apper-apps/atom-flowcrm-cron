@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'react-toastify/dist/ReactToastify.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #1f2937;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* React Toastify customizations */
+.Toastify__toast-container {
+  z-index: 9999;
+  font-family: 'Inter', sans-serif;
+}
+
+.Toastify__toast {
+  min-height: 50px;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.Toastify__toast--warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.Toastify__toast--info {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+}
+
+.Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-shimmer {
+  animation: shimmer 1.2s ease-in-out infinite;
+  background: linear-gradient(to right, #f1f5f9 8%, #e2e8f0 18%, #f1f5f9 33%);
+  background-size: 800px 104px;
+}
+
+/* Kanban board styling */
+.kanban-column {
+  min-height: 500px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.kanban-column.drag-over {
+  background: #eff6ff;
+  border-color: #3b82f6;
+}
+
+.deal-card {
+  transition: all 0.2s ease;
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.deal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.deal-card.dragging {
+  opacity: 0.8;
+  transform: rotate(5deg);
+}
+
+/* Stage specific colors */
+.stage-lead .deal-card {
+  border-left-color: #6b7280;
+}
+
+.stage-qualified .deal-card {
+  border-left-color: #3b82f6;
+}
+
+.stage-proposal .deal-card {
+  border-left-color: #f59e0b;
+}
+
+.stage-negotiation .deal-card {
+  border-left-color: #7c3aed;
+}
+
+.stage-closed-won .deal-card {
+  border-left-color: #22c55e;
+}
+
+.stage-closed-lost .deal-card {
+  border-left-color: #ef4444;
+}
+
+/* Activity timeline */
+.activity-timeline {
+  position: relative;
+}
+
+.activity-timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #e2e8f0, #f1f5f9);
+}
+
+.activity-item {
+  position: relative;
+  padding-left: 48px;
+  margin-bottom: 24px;
+}
+
+.activity-item::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 50%;
+}
+
+.activity-item.type-call::before {
+  border-color: #3b82f6;
+  background: #3b82f6;
+}
+
+.activity-item.type-email::before {
+  border-color: #10b981;
+  background: #10b981;
+}
+
+.activity-item.type-meeting::before {
+  border-color: #7c3aed;
+  background: #7c3aed;
+}
+
+.activity-item.type-note::before {
+  border-color: #f59e0b;
+  background: #f59e0b;
+}
+
+.activity-item.type-task::before {
+  border-color: #ef4444;
+  background: #ef4444;
+}
