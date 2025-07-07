@@ -163,14 +163,14 @@ export const dealService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         records: [{
           Name: dealData.title,
           title: dealData.title,
           value: dealData.value,
           close_date: dealData.closeDate,
           description: dealData.description || "",
-          probability: dealData.probability,
+          probability: dealData.probability.toString(),
           status: "active",
           contact_id: dealData.contactId,
           stage_id: dealData.stageId
