@@ -155,7 +155,7 @@ export const dealService = {
     }
   },
   
-  create: async (dealData) => {
+create: async (dealData) => {
     try {
       const { ApperClient } = window.ApperSDK;
       const apperClient = new ApperClient({
@@ -170,7 +170,7 @@ const params = {
           value: dealData.value,
           close_date: dealData.closeDate,
           description: dealData.description || "",
-          probability: dealData.probability,
+          probability: dealData.probability.toString(),
           status: "active",
           contact_id: dealData.contactId,
           stage_id: dealData.stageId
