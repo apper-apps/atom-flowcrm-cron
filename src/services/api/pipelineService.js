@@ -1,8 +1,11 @@
 import { toast } from 'react-toastify';
 
 export const pipelineService = {
-  getStages: async () => {
+getStages: async () => {
     try {
+      // Ensure default stages exist before fetching
+      await pipelineService.createDefaultStages();
+      
       const { ApperClient } = window.ApperSDK;
       const apperClient = new ApperClient({
         apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
