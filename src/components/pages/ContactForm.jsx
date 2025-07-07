@@ -12,7 +12,7 @@ import { contactService } from '@/services/api/contactService';
 const ContactForm = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -73,10 +73,12 @@ const ContactForm = () => {
       return;
     }
 
-    try {
+try {
       setLoading(true);
-      await contactService.create(formData);
-      toast.success('Contact created successfully');
+      const result = await contactService.create(formData);
+      if (result) {
+        toast.success('Contact created successfully');
+      }
       navigate('/contacts');
     } catch (error) {
       toast.error('Failed to create contact');

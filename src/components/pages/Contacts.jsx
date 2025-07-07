@@ -40,11 +40,11 @@ const Contacts = () => {
   
   useEffect(() => {
     if (searchQuery) {
-      const filtered = contacts.filter(contact =>
-        contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        contact.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (contact.companyName && contact.companyName.toLowerCase().includes(searchQuery.toLowerCase()))
+const filtered = contacts.filter(contact =>
+        contact.first_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        contact.last_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        contact.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (contact.company_name && contact.company_name.toLowerCase().includes(searchQuery.toLowerCase()))
       );
       setFilteredContacts(filtered);
     } else {

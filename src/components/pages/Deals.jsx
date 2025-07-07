@@ -41,13 +41,13 @@ const Deals = () => {
     loadDealsData();
   }, []);
   
-  const handleDealMove = async (deal, newStage) => {
+const handleDealMove = async (deal, newStage) => {
     try {
-      const updatedDeal = { ...deal, stageId: newStage.Id };
+      const updatedDeal = { stageId: newStage.Id };
       await dealService.update(deal.Id, updatedDeal);
       
-      setDeals(deals.map(d => d.Id === deal.Id ? updatedDeal : d));
-      toast.success(`Deal moved to ${newStage.name}`);
+      setDeals(deals.map(d => d.Id === deal.Id ? { ...d, stage_id: newStage.Id } : d));
+      toast.success(`Deal moved to ${newStage.Name}`);
     } catch (err) {
       toast.error('Failed to move deal');
     }

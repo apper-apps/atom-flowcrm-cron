@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import Card from "@/components/atoms/Card";
-import Button from "@/components/atoms/Button";
-import Badge from "@/components/atoms/Badge";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import ActivityTimeline from "@/components/organisms/ActivityTimeline";
-import ApperIcon from "@/components/ApperIcon";
 import { formatDate } from "@/utils/date";
 import { formatCurrency } from "@/utils/currency";
+import ApperIcon from "@/components/ApperIcon";
+import ActivityTimeline from "@/components/organisms/ActivityTimeline";
+import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
+import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
+import Contacts from "@/components/pages/Contacts";
+import Deals from "@/components/pages/Deals";
+import Activities from "@/components/pages/Activities";
 import { contactService } from "@/services/api/contactService";
-import { dealService } from "@/services/api/dealService";
 import { activityService } from "@/services/api/activityService";
+import { dealService } from "@/services/api/dealService";
 const ContactDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -23,7 +26,7 @@ const ContactDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
-  const loadContactData = async () => {
+const loadContactData = async () => {
     try {
       setLoading(true);
       setError('');
@@ -52,12 +55,14 @@ const ContactDetail = () => {
     navigate(`/contacts/${id}/edit`);
   };
   
-  const handleDeleteContact = async () => {
+const handleDeleteContact = async () => {
     if (window.confirm('Are you sure you want to delete this contact?')) {
       try {
-        await contactService.delete(parseInt(id));
-        toast.success('Contact deleted successfully');
-        navigate('/contacts');
+        const result = await contactService.delete(parseInt(id));
+        if (result) {
+          toast.success('Contact deleted successfully');
+          navigate('/contacts');
+        }
       } catch (err) {
         toast.error('Failed to delete contact');
       }
@@ -89,14 +94,14 @@ const ContactDetail = () => {
             Back to Contacts
           </Button>
           <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center">
+<div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center">
               <span className="text-2xl font-bold text-primary">
-                {contact.firstName[0]}{contact.lastName[0]}
+                {contact.first_name?.[0]}{contact.last_name?.[0]}
               </span>
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                {contact.firstName} {contact.lastName}
+<h1 className="text-3xl font-bold text-gray-900">
+                {contact.first_name} {contact.last_name}
               </h1>
               <p className="text-gray-600 mt-1">{contact.email}</p>
             </div>
@@ -127,7 +132,7 @@ const ContactDetail = () => {
                 <p className="text-sm text-gray-900">{contact.email}</p>
               </div>
               
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Phone
                 </label>
@@ -138,21 +143,21 @@ const ContactDetail = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Company
                 </label>
-                <p className="text-sm text-gray-900">{contact.companyName || 'Not provided'}</p>
+                <p className="text-sm text-gray-900">{contact.company_name || 'Not provided'}</p>
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Owner
                 </label>
-                <p className="text-sm text-gray-900">{contact.ownerName}</p>
+                <p className="text-sm text-gray-900">{contact.Owner?.Name || 'Unknown'}</p>
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Created Date
                 </label>
-                <p className="text-sm text-gray-900">{formatDate(contact.createdAt)}</p>
+                <p className="text-sm text-gray-900">{formatDate(contact.CreatedOn)}</p>
               </div>
             </div>
           </Card>
@@ -164,15 +169,15 @@ const ContactDetail = () => {
               <p className="text-gray-500 text-center py-8">No deals associated with this contact</p>
             ) : (
               <div className="space-y-4">
-                {deals.map((deal) => (
+{deals.map((deal) => (
                   <div
                     key={deal.Id}
                     className="flex items-center justify-between p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors"
                     onClick={() => navigate(`/deals/${deal.Id}`)}
                   >
-                    <div className="flex-1">
+                    <div>
                       <h3 className="font-medium text-gray-900">{deal.title}</h3>
-                      <p className="text-sm text-gray-600">{deal.stageName}</p>
+                      <p className="text-sm text-gray-600">{deal.stage_id?.Name || 'Unknown'}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-semibold text-gray-900">
@@ -229,10 +234,10 @@ const ContactDetail = () => {
                 <span className="font-semibold text-gray-900">{activities.length}</span>
               </div>
               
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Last Contact</span>
+<div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">Last Activity</span>
                 <span className="font-semibold text-gray-900">
-                  {activities.length > 0 ? formatDate(activities[0].createdAt) : 'Never'}
+                  {activities.length > 0 ? formatDate(activities[0].CreatedOn) : 'Never'}
                 </span>
               </div>
             </div>

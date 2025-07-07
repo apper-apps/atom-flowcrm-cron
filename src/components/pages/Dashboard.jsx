@@ -91,15 +91,15 @@ const Dashboard = () => {
                 className="flex items-center justify-between p-4 bg-gray-50 rounded-lg cursor-pointer"
                 onClick={() => navigate(`/deals/${deal.Id}`)}
               >
-                <div className="flex-1">
+<div className="flex-1">
                   <h3 className="font-medium text-gray-900">{deal.title}</h3>
-                  <p className="text-sm text-gray-600">{deal.contactName}</p>
+                  <p className="text-sm text-gray-600">{deal.contact_id?.Name || 'Unknown'}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-semibold text-gray-900">
                     {formatCurrency(deal.value)}
-                  </p>
-                  <p className="text-sm text-gray-500">{deal.stageName}</p>
+</p>
+                  <p className="text-sm text-gray-500">{deal.stage_id?.Name || 'Unknown'}</p>
                 </div>
               </motion.div>
             ))}

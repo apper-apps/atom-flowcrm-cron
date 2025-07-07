@@ -16,7 +16,7 @@ const Reports = () => {
   const [error, setError] = useState('');
   const [timeRange, setTimeRange] = useState('30d');
   
-  const loadReportData = async () => {
+const loadReportData = async () => {
     try {
       setLoading(true);
       setError('');

@@ -15,14 +15,14 @@ const TaskForm = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [contacts, setContacts] = useState([]);
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     title: '',
     description: '',
     dueDate: '',
     priority: 'medium',
     status: 'pending',
     contactId: '',
-    assigneeId: 1 // Default to current user
+    assigneeId: 1
   });
   const [errors, setErrors] = useState({});
 
@@ -78,16 +78,22 @@ const TaskForm = () => {
       return;
     }
 
-    try {
+try {
       setLoading(true);
       const taskData = {
-        ...formData,
+        title: formData.title,
+        description: formData.description,
+        dueDate: formData.dueDate,
+        priority: formData.priority,
+        status: formData.status,
         contactId: formData.contactId ? parseInt(formData.contactId) : null,
         assigneeId: parseInt(formData.assigneeId)
       };
       
-      await taskService.create(taskData);
-      toast.success('Task created successfully');
+      const result = await taskService.create(taskData);
+      if (result) {
+        toast.success('Task created successfully');
+      }
       navigate('/tasks');
     } catch (error) {
       toast.error('Failed to create task');
@@ -195,9 +201,9 @@ const TaskForm = () => {
               onChange={handleInputChange}
             >
               <option value="">Select a contact (optional)</option>
-              {contacts.map(contact => (
+{contacts.map(contact => (
                 <option key={contact.Id} value={contact.Id}>
-                  {contact.firstName} {contact.lastName} {contact.companyName && `(${contact.companyName})`}
+                  {contact.first_name} {contact.last_name} {contact.company_name && `(${contact.company_name})`}
                 </option>
               ))}
             </Select>

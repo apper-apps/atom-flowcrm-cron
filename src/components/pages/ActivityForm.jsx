@@ -17,7 +17,7 @@ const ActivityForm = () => {
   const [loading, setLoading] = useState(false);
   const [contacts, setContacts] = useState([]);
   const [deals, setDeals] = useState([]);
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     type: 'call',
     subject: '',
     description: '',
@@ -91,17 +91,23 @@ const ActivityForm = () => {
       return;
     }
 
-    try {
+try {
       setLoading(true);
       const activityData = {
-        ...formData,
+        type: formData.type,
+        subject: formData.subject,
+        description: formData.description,
         contactId: formData.contactId ? parseInt(formData.contactId) : null,
         dealId: formData.dealId ? parseInt(formData.dealId) : null,
-        duration: parseInt(formData.duration)
+        scheduledDate: formData.scheduledDate,
+        duration: parseInt(formData.duration),
+        outcome: formData.outcome
       };
       
-      await activityService.create(activityData);
-      toast.success('Activity created successfully');
+      const result = await activityService.create(activityData);
+      if (result) {
+        toast.success('Activity created successfully');
+      }
       navigate('/activities');
     } catch (error) {
       toast.error('Failed to create activity');
@@ -215,9 +221,9 @@ const ActivityForm = () => {
                 className={errors.contactId ? 'border-red-500' : ''}
               >
                 <option value="">Select a contact</option>
-                {contacts.map(contact => (
+{contacts.map(contact => (
                   <option key={contact.Id} value={contact.Id}>
-                    {contact.firstName} {contact.lastName} {contact.companyName && `(${contact.companyName})`}
+                    {contact.first_name} {contact.last_name} {contact.company_name && `(${contact.company_name})`}
                   </option>
                 ))}
               </Select>
@@ -236,7 +242,7 @@ const ActivityForm = () => {
                 className={errors.dealId ? 'border-red-500' : ''}
               >
                 <option value="">Select a deal</option>
-                {deals.map(deal => (
+{deals.map(deal => (
                   <option key={deal.Id} value={deal.Id}>
                     {deal.title}
                   </option>

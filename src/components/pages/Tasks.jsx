@@ -31,21 +31,18 @@ const Tasks = () => {
     loadTasks();
   }, []);
   
-  const handleCompleteTask = async (taskId) => {
+const handleCompleteTask = async (taskId) => {
     try {
       const task = tasks.find(t => t.Id === taskId);
       if (!task) return;
       
-      const updatedTask = {
-        ...task,
-        status: task.status === 'completed' ? 'pending' : 'completed'
-      };
+      const newStatus = task.status === 'completed' ? 'pending' : 'completed';
       
-      await taskService.update(taskId, updatedTask);
-      setTasks(tasks.map(t => t.Id === taskId ? updatedTask : t));
+      await taskService.update(taskId, { status: newStatus });
+setTasks(tasks.map(t => t.Id === taskId ? { ...t, status: newStatus } : t));
       
       toast.success(
-        updatedTask.status === 'completed' 
+        newStatus === 'completed' 
           ? 'Task completed!' 
           : 'Task marked as pending'
       );

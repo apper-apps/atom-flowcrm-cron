@@ -1,105 +1,299 @@
-import mockDeals from '@/services/mockData/deals.json';
-import mockContacts from '@/services/mockData/contacts.json';
-import mockPipelines from '@/services/mockData/pipelines.json';
-
-let dealsData = [...mockDeals];
+import { toast } from 'react-toastify';
 
 export const dealService = {
   getAll: async () => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 400));
-    
-    return dealsData.map(deal => ({
-      ...deal,
-      contactName: mockContacts.find(c => c.Id === deal.contactId)?.firstName + ' ' + mockContacts.find(c => c.Id === deal.contactId)?.lastName || 'Unknown',
-      stageName: mockPipelines.stages.find(s => s.Id === deal.stageId)?.name || 'Unknown',
-      ownerName: 'John Doe', // Would come from users table
-      hasActivities: Math.random() > 0.5,
-      hasTasks: Math.random() > 0.5,
-      hasFiles: Math.random() > 0.5,
-    }));
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "title" } },
+          { field: { Name: "value" } },
+          { field: { Name: "close_date" } },
+          { field: { Name: "description" } },
+          { field: { Name: "probability" } },
+          { field: { Name: "status" } },
+          { field: { Name: "contact_id" }, referenceField: { field: { Name: "Name" } } },
+          { field: { Name: "stage_id" }, referenceField: { field: { Name: "Name" } } }
+        ],
+        orderBy: [{ fieldName: "Name", sorttype: "ASC" }]
+      };
+
+      const response = await apperClient.fetchRecords('deal', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return [];
+      }
+
+      return response.data || [];
+    } catch (error) {
+      console.error('Error fetching deals:', error);
+      throw error;
+    }
   },
   
   getById: async (id) => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 200));
-    
-    const deal = dealsData.find(d => d.Id === id);
-    if (!deal) throw new Error('Deal not found');
-    
-    const contact = mockContacts.find(c => c.Id === deal.contactId);
-    const stage = mockPipelines.stages.find(s => s.Id === deal.stageId);
-    
-    return {
-      ...deal,
-      contactName: contact ? `${contact.firstName} ${contact.lastName}` : 'Unknown',
-      contactEmail: contact?.email || '',
-      contactPhone: contact?.phone || '',
-      companyName: contact?.companyName || '',
-      stageName: stage?.name || 'Unknown',
-      ownerName: 'John Doe',
-    };
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "title" } },
+          { field: { Name: "value" } },
+          { field: { Name: "close_date" } },
+          { field: { Name: "description" } },
+          { field: { Name: "probability" } },
+          { field: { Name: "status" } },
+          { field: { Name: "contact_id" }, referenceField: { field: { Name: "Name" } } },
+          { field: { Name: "stage_id" }, referenceField: { field: { Name: "Name" } } }
+        ]
+      };
+
+      const response = await apperClient.getRecordById('deal', id, params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return null;
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching deal with ID ${id}:`, error);
+      throw error;
+    }
   },
-  
+
   getByContactId: async (contactId) => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 200));
-    
-    return dealsData
-      .filter(deal => deal.contactId === contactId)
-      .map(deal => ({
-        ...deal,
-        stageName: mockPipelines.stages.find(s => s.Id === deal.stageId)?.name || 'Unknown',
-      }));
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "title" } },
+          { field: { Name: "value" } },
+          { field: { Name: "close_date" } },
+          { field: { Name: "description" } },
+          { field: { Name: "probability" } },
+          { field: { Name: "status" } },
+          { field: { Name: "contact_id" }, referenceField: { field: { Name: "Name" } } },
+          { field: { Name: "stage_id" }, referenceField: { field: { Name: "Name" } } }
+        ],
+        where: [
+          {
+            FieldName: "contact_id",
+            Operator: "EqualTo",
+            Values: [contactId]
+          }
+        ]
+      };
+
+      const response = await apperClient.fetchRecords('deal', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return [];
+      }
+
+      return response.data || [];
+    } catch (error) {
+      console.error('Error fetching deals by contact ID:', error);
+      throw error;
+    }
   },
   
   getRecent: async () => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 200));
-    
-    return dealsData
-      .slice(0, 5)
-      .map(deal => ({
-        ...deal,
-        contactName: mockContacts.find(c => c.Id === deal.contactId)?.firstName + ' ' + mockContacts.find(c => c.Id === deal.contactId)?.lastName || 'Unknown',
-        stageName: mockPipelines.stages.find(s => s.Id === deal.stageId)?.name || 'Unknown',
-      }));
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "title" } },
+          { field: { Name: "value" } },
+          { field: { Name: "contact_id" }, referenceField: { field: { Name: "Name" } } },
+          { field: { Name: "stage_id" }, referenceField: { field: { Name: "Name" } } }
+        ],
+        orderBy: [{ fieldName: "CreatedOn", sorttype: "DESC" }],
+        pagingInfo: { limit: 5, offset: 0 }
+      };
+
+      const response = await apperClient.fetchRecords('deal', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return [];
+      }
+
+      return response.data || [];
+    } catch (error) {
+      console.error('Error fetching recent deals:', error);
+      throw error;
+    }
   },
   
   create: async (dealData) => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    const maxId = Math.max(...dealsData.map(d => d.Id));
-    const newDeal = {
-      Id: maxId + 1,
-      ...dealData,
-      createdAt: new Date().toISOString(),
-    };
-    
-    dealsData.push(newDeal);
-    return newDeal;
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        records: [{
+          Name: dealData.title,
+          title: dealData.title,
+          value: dealData.value,
+          close_date: dealData.closeDate,
+          description: dealData.description || "",
+          probability: dealData.probability,
+          status: "active",
+          contact_id: dealData.contactId,
+          stage_id: dealData.stageId
+        }]
+      };
+
+      const response = await apperClient.createRecord('deal', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return null;
+      }
+
+      if (response.results) {
+        const successfulRecords = response.results.filter(result => result.success);
+        const failedRecords = response.results.filter(result => !result.success);
+        
+        if (failedRecords.length > 0) {
+          console.error(`Failed to create ${failedRecords.length} records:${JSON.stringify(failedRecords)}`);
+          failedRecords.forEach(record => {
+            record.errors?.forEach(error => {
+              toast.error(`${error.fieldLabel}: ${error.message}`);
+            });
+            if (record.message) toast.error(record.message);
+          });
+        }
+        
+        return successfulRecords.length > 0 ? successfulRecords[0].data : null;
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('Error creating deal:', error);
+      throw error;
+    }
   },
   
-  update: async (id, updateData) => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    const index = dealsData.findIndex(d => d.Id === id);
-    if (index === -1) throw new Error('Deal not found');
-    
-    dealsData[index] = { ...dealsData[index], ...updateData };
-    return dealsData[index];
+  update: async (id, dealData) => {
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        records: [{
+          Id: id,
+          stage_id: dealData.stageId || dealData.stage_id
+        }]
+      };
+
+      const response = await apperClient.updateRecord('deal', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return null;
+      }
+
+      if (response.results) {
+        const successfulUpdates = response.results.filter(result => result.success);
+        const failedUpdates = response.results.filter(result => !result.success);
+        
+        if (failedUpdates.length > 0) {
+          console.error(`Failed to update ${failedUpdates.length} records:${JSON.stringify(failedUpdates)}`);
+          failedUpdates.forEach(record => {
+            record.errors?.forEach(error => {
+              toast.error(`${error.fieldLabel}: ${error.message}`);
+            });
+            if (record.message) toast.error(record.message);
+          });
+        }
+        
+        return successfulUpdates.length > 0 ? successfulUpdates[0].data : null;
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('Error updating deal:', error);
+      throw error;
+    }
   },
   
   delete: async (id) => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 200));
-    
-    const index = dealsData.findIndex(d => d.Id === id);
-    if (index === -1) throw new Error('Deal not found');
-    
-    dealsData.splice(index, 1);
-    return true;
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        RecordIds: [id]
+      };
+
+      const response = await apperClient.deleteRecord('deal', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return false;
+      }
+
+      if (response.results) {
+        const successfulDeletions = response.results.filter(result => result.success);
+        const failedDeletions = response.results.filter(result => !result.success);
+        
+        if (failedDeletions.length > 0) {
+          console.error(`Failed to delete ${failedDeletions.length} records:${JSON.stringify(failedDeletions)}`);
+          failedDeletions.forEach(record => {
+            if (record.message) toast.error(record.message);
+          });
+        }
+        
+        return successfulDeletions.length > 0;
+      }
+      
+      return false;
+    } catch (error) {
+      console.error('Error deleting deal:', error);
+      throw error;
+    }
   },
 };

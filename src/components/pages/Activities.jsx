@@ -35,7 +35,7 @@ const Activities = () => {
     loadActivities();
   }, []);
   
-  useEffect(() => {
+useEffect(() => {
     if (filterType === 'all') {
       setFilteredActivities(activities);
     } else {

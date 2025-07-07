@@ -17,7 +17,7 @@ const DealForm = () => {
   const [loading, setLoading] = useState(false);
   const [contacts, setContacts] = useState([]);
   const [stages, setStages] = useState([]);
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     title: '',
     value: '',
     contactId: '',
@@ -102,17 +102,21 @@ const DealForm = () => {
     }
 
     try {
-      setLoading(true);
+setLoading(true);
       const dealData = {
-        ...formData,
+        title: formData.title,
         value: parseFloat(formData.value),
         contactId: parseInt(formData.contactId),
         stageId: parseInt(formData.stageId),
+        closeDate: formData.closeDate,
+        description: formData.description,
         probability: parseInt(formData.probability)
       };
       
-      await dealService.create(dealData);
-      toast.success('Deal created successfully');
+      const result = await dealService.create(dealData);
+      if (result) {
+        toast.success('Deal created successfully');
+      }
       navigate('/deals');
     } catch (error) {
       toast.error('Failed to create deal');
@@ -204,9 +208,9 @@ const DealForm = () => {
                 className={errors.contactId ? 'border-red-500' : ''}
               >
                 <option value="">Select a contact</option>
-                {contacts.map(contact => (
+{contacts.map(contact => (
                   <option key={contact.Id} value={contact.Id}>
-                    {contact.firstName} {contact.lastName} {contact.companyName && `(${contact.companyName})`}
+                    {contact.first_name} {contact.last_name} {contact.company_name && `(${contact.company_name})`}
                   </option>
                 ))}
               </Select>
@@ -225,9 +229,9 @@ const DealForm = () => {
                 className={errors.stageId ? 'border-red-500' : ''}
               >
                 <option value="">Select a stage</option>
-                {stages.map(stage => (
+{stages.map(stage => (
                   <option key={stage.Id} value={stage.Id}>
-                    {stage.name}
+                    {stage.Name}
                   </option>
                 ))}
               </Select>

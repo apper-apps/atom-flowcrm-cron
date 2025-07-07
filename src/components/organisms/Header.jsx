@@ -1,17 +1,19 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import SearchBar from '@/components/molecules/SearchBar';
-import Button from '@/components/atoms/Button';
-import ApperIcon from '@/components/ApperIcon';
-
+import React, { useContext, useState } from "react";
+import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { AuthContext } from "@/App";
+import ApperIcon from "@/components/ApperIcon";
+import Button from "@/components/atoms/Button";
+import SearchBar from "@/components/molecules/SearchBar";
 const Header = ({ onMobileMenuToggle }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const { logout } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
   
   const handleSearch = (query) => {
     console.log('Search query:', query);
     // Implement search functionality
   };
-  
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
@@ -49,10 +51,18 @@ const Header = ({ onMobileMenuToggle }) => {
           <Button size="sm" variant="ghost">
             <ApperIcon name="Settings" className="w-5 h-5" />
           </Button>
-          
-          <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
-            <ApperIcon name="User" className="w-4 h-4 text-white" />
+<div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+              <ApperIcon name="User" className="w-4 h-4 text-white" />
+            </div>
+            <div className="hidden md:block">
+              <p className="text-sm font-medium text-gray-900">{user?.firstName || 'User'}</p>
+            </div>
           </div>
+          
+<Button size="sm" variant="ghost" onClick={logout}>
+            <ApperIcon name="LogOut" className="w-4 h-4" />
+          </Button>
         </div>
       </div>
       
